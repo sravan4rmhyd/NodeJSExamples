@@ -1,0 +1,1 @@
+global.someThing=123
