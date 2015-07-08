@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.min.js" ></script>
+</head>
+<body>
+<form name="frm">
+    <div>
+        <input type="email" name="test" ng-model="user.email" required>
+        <span ng-show="frm.test.$dirty && frm.test.$error.required">Required!</span>
+        <span ng-show="frm.test.$dirty && frm.test.$error.email">Please enter valid email</span>
+    </div>
+</form>
+</body>
+</html>

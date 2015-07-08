@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.min.js" ></script>
+    <script src="scopeInheritance.js" ></script>
+</head>
+<body ng-app="scopeInheritance">
+<div class="spicy">
+    <div ng-controller="MainController">
+        <p>Good {{timeOfDay}}, {{name}}!</p>
+
+        <div ng-controller="ChildController">
+            <p>Good {{timeOfDay}}, {{name}}!</p>
+
+            <div ng-controller="GrandChildController">
+                <p>Good {{timeOfDay}}, {{name}}!</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
