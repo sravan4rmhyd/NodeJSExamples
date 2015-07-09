@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="APP">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.min.js"></script>
+    <script>
+        var APP=angular.module("APP",[]);
+        APP.directive("sravan",function(){
+            return {
+                restrict:'A',
+                link:function(scope,element,attributes){
+                    scope.fullName = attributes.firstname+' '+attributes.lastname;
+                },
+                template:"<h1>{{fullName}}</h1>"
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1 sravan ="" firstName="sravan" lastName ="kumar"></h1>
+</body>
+</html>

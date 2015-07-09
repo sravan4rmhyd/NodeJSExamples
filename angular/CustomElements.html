@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="APP">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.min.js"></script>
+    <script>
+        var APP=angular.module("APP",[]);
+        APP.controller('theController',['$scope','$compile',function(scope,compile){
+            scope.addValue= function(v)
+            {
+                var btn = compile("<name firstname='"+v+"' lastname='"+v+"' />")(scope)
+                angular.element(document.getElementById("holder")).append(btn);
+            }
+        }]);
+        APP.directive("name",function(){
+            return {
+                restrict:'E',
+                replace:true,
+                scope:{},
+                link:function(scope,element,attributes){
+                    scope.fullName = attributes.firstname+' '+attributes.lastname;
+                },
+                template:"<h3>{{fullName}}</h3>"
+            }
+        });
+        APP.directive('expresssion',['$parse',function(parse){
+            return {
+                restrict:'E',
+                scope:{},
+                link:function(s,e,a){
+                    s.out=parse(a.eq)()
+                },
+                template:'{{out}}<br/>'
+            }
+        }]);
+    </script>
+</head>
+<body>
+    <div ng-controller="theController">
+        <name firstName="sravan" lastName ="kumar"></name>
+        <input type="text" ng-model="val">
+        <button ng-click="addValue(val)">Add</button>
+        <div id="holder">
+
+        </div>
+        <expresssion eq="1+1"></expresssion>
+        <expresssion eq="2+5"></expresssion>
+        <expresssion eq="2*5"></expresssion>
+        <expresssion eq="10%2"></expresssion>
+        <expresssion eq="2+10"></expresssion>
+    </div>
+</body>
+</html>

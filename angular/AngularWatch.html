@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.min.js"></script>
+    <script>
+        var APP = angular.module('APP',[]);
+        APP.controller('theController',['$scope','$http',function(scope,http){
+            scope.countSelection =10;
+            scope.getPeople= function(count){
+                http.jsonp('http://www.filltext.com/?callback=JSON_CALLBACK&rows='+count+'&fname={firstName}&lname={lastName}')
+                        .success(function(data){
+                            console.log(data);
+                    scope.peoples = data;
+                })
+            }
+            scope.$watch('countSelection',function(newValue,oldValue){
+                scope.getPeople(newValue)
+            })
+            scope.$watch('peoples',function(newValue,oldValue){
+                if(newValue!=oldValue)
+                {
+                    scope.whenChanged = new Date().toString();
+                }
+            },true)
+        }])
+    </script>
+</head>
+<body ng-app="APP">
+<div ng-controller="theController">
+    <select ng-model="countSelection" ng-options="n for n in [5,10,15,20]"></select>
+    <p>{{peoples[0].fname}}</p><br/>
+    <p>{{whenChanged}}</p><br/>
+    <div ng-repeat="people in peoples">
+        <input type="text" ng-model="people.fname">
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="APP">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.min.js"></script>
+    <script>
+        var APP = angular.module('APP',[]);
+        APP.controller('theController',['$scope','$q',function(scope,$q)
+        {
+            scope.addOne =function(number){
+                var q =$q.defer()
+                if(angular.isNumber(number)){
+                    scope.step++
+                    setTimeout(function(){q.resolve(number+1)},1000)
+                }else
+                {
+                    q.reject('NAN')
+                }
+                return q.promise
+            }
+            scope.myValue =0
+            scope.step=0
+            scope.test = scope.addOne(scope.myValue)
+            scope.test.
+                    then(function(v){return scope.addOne(v)}).
+                    then(function(v){return scope.addOne(v)}).
+                    then(function(v){return scope.addOne(v)}).
+                    then(function(v){return scope.addOne('v')}).
+                    then(function(v){return scope.addOne(v)}).
+                    then(function(v){scope.myValue=v},
+                          function(err){scope.myValue= err})
+        }]);
+
+    </script>
+</head>
+<body>
+    <div ng-controller="theController">
+        {{myValue}}<br/>
+        {{step}}
+    </div>
+</body>
+</html>
